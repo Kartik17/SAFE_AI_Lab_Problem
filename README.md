@@ -11,7 +11,7 @@
 ## Plot Raw Data
 
 #### Longitude vs timestamp
-![Longitude vs timestamp]()
+![Longitude vs timestamp](https://github.com/Kartik17/SAFE_AI_Lab_Problem/blob/master/Images/longitude_timesatmp.png)
 
 #### Latitude vs timestamp
 #### Linear x vs timestamp
