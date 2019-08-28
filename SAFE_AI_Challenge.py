@@ -75,55 +75,39 @@ if __name__ == '__main__':
 		
 	bag.close()
 
-	#print(timestamp_vel, len(timestamp_vel), len(timestamp_steer))
-
+	
+	# Uncomment to Plot the Smoothened Data
 	'''
-				plot_compare_data(longitude,longitude_smooth,timestamp_lat_lon, "longitude", "timestamp")
-				plot_compare_data(latitude,latitude_smooth,timestamp_lat_lon, "latitude", "timestamp")
-			
-				plot_compare_data(linear_x,linear_x_smooth,timestamp_vel, "linear_x", "timestamp")
-				plot_compare_data(linear_y,linear_y_smooth,timestamp_vel, "linear_y", "timestamp")
-			
-				plot_compare_data(steer_whl_angle,steer_whl_angle_smooth,timestamp_steer, "steering wheel angle", "timestamp")
-				plot_compare_data(steer_whl_torque,steer_whl_torque_smooth,timestamp_steer, "steering wheel Torque", "timestamp")
-				plot_compare_data(speed,speed_smooth,timestamp_steer, "speed", "timestamp")
-			'''
+	plot_compare_data(longitude,longitude_smooth,timestamp_lat_lon, "longitude", "timestamp")
+	plot_compare_data(latitude,latitude_smooth,timestamp_lat_lon, "latitude", "timestamp")
 
-	#print(timestamp_vel)
+	plot_compare_data(linear_x,linear_x_smooth,timestamp_vel, "linear_x", "timestamp")
+	plot_compare_data(linear_y,linear_y_smooth,timestamp_vel, "linear_y", "timestamp")
+
+	plot_compare_data(steer_whl_angle,steer_whl_angle_smooth,timestamp_steer, "steering wheel angle", "timestamp")
+	plot_compare_data(steer_whl_torque,steer_whl_torque_smooth,timestamp_steer, "steering wheel Torque", "timestamp")
+	plot_compare_data(speed,speed_smooth,timestamp_steer, "speed", "timestamp")
 	'''
-		plot_data(longitude,timestamp_lat_lon, "longitude", "timestamp")
-		plot_data(latitude,timestamp_lat_lon, "latitude", "timestamp")
-	
-		plot_data(linear_x,timestamp_vel, "linear_x", "timestamp")
-		plot_data(linear_y,timestamp_vel, "linear_y", "timestamp")
-	
-		plot_data(steer_whl_angle,timestamp_steer, "steering wheel angle", "timestamp")
-		plot_data(steer_whl_torque,timestamp_steer, "Steering wheel Torque", "timestamp")
-		plot_data(speed,timestamp_steer, "speed", "timestamp")
-	
+
+	# Uncomment to Plot the Raw Data
+	'''
+	plot_data(longitude,timestamp_lat_lon, "longitude", "timestamp")
+	plot_data(latitude,timestamp_lat_lon, "latitude", "timestamp")
+
+	plot_data(linear_x,timestamp_vel, "linear_x", "timestamp")
+	plot_data(linear_y,timestamp_vel, "linear_y", "timestamp")
+
+	plot_data(steer_whl_angle,timestamp_steer, "steering wheel angle", "timestamp")
+	plot_data(steer_whl_torque,timestamp_steer, "Steering wheel Torque", "timestamp")
+	plot_data(speed,timestamp_steer, "speed", "timestamp")
+
 	'''	
 
 
 
 
 	nearest_timestamp_list, nearest_timestamp_whl_angle_list, nearest_timestamp_whl_torque_list, nearest_timestamp_speed_list = [], [], [], []
-	'''	
 	start_time = time.time()
-
-	for time_one in timestamp_lat_lon:
-		temp_list = []
-		for time_comp in timestamp_steer:
-			temp_list.append(abs(time_one-time_comp))
-
-		nearest_timestamp_list.append(timestamp_steer[temp_list.index(min(temp_list))])
-		nearest_timestamp_whl_angle_list.append(steer_whl_angle[temp_list.index(min(temp_list))])
-		nearest_timestamp_whl_torque_list.append(steer_whl_torque[temp_list.index(min(temp_list))])
-		nearest_timestamp_speed_list.append(speed[temp_list.index(min(temp_list))])
-
-	print("Time  Brute Force: {}".format(time.time() -  start_time))
-	'''
-	start_time = time.time()
-
 	for time_one in timestamp_lat_lon:
 		temp_list = abs(time_one - np.array(timestamp_steer))
 
@@ -133,31 +117,9 @@ if __name__ == '__main__':
 		nearest_timestamp_speed_list.append(speed[np.argmin(temp_list)])
 
 	print("Time  Brute Force: {}".format(time.time() -  start_time))
-
 	print(nearest_timestamp_list)
 
-	'''
-	start_time = time.time()
-
-	temp_list = []
-	for time_one in timestamp_lat_lon:
-		previous_value = 0.0
-		start_index = 0
-		for i in range(len(timestamp_steer[start_index:])):
-			if previous_value == 0:
-				previous_value = (time_one - timestamp_steer[start_index:][i])
-			elif previous_value*(time_one-timestamp_steer[start_index:][i]) < 0:
-				temp_list.append(timestamp_steer[start_index:][i])
-				start_index += i
-				break
-
-	print("Time Optimized: {} ".format(time.time() - start_time))
-
-	print(temp_list)
-	'''
-
-
-
+	# Smoothened Data
 	smooth_nearest_timestamp_whl_angle_list = exp_smoothing(nearest_timestamp_whl_angle_list,0.5)
 	smooth_nearest_timestamp_whl_torque_list = exp_smoothing(nearest_timestamp_whl_torque_list,0.7)
 	smooth_nearest_timestamp_speed_list = exp_smoothing(nearest_timestamp_speed_list,0.5)
