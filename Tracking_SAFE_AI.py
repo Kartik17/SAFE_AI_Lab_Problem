@@ -79,13 +79,14 @@ if __name__ == '__main__':
 			X_new, P_new = predict(F,P,Q_P,states[i])
 			state_vector, P = update(observation_list[i].T,H,X_new,P_new,Q_S)
 			states.append(state_vector)
-			print(state_vector[0][0])
+			#print(state_vector[0][0])
 
 		elif i >(len(observation_list)-1):
 			X_predict, P_new = predict(F,P,Q_P,states[i])
 			states.append(X_predict)
-			print(X_predict[0][0])
-
+			#print(X_predict[0][0])
+		
+	print("States: {}".format(states))
 
 '''
 
