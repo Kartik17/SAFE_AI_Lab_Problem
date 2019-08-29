@@ -78,34 +78,9 @@ Timestamps - [1508620413.394021, 1508620414.415758, 1508620415.417381, 150862041
 ![Speed vs timestamp](https://github.com/Kartik17/SAFE_AI_Lab_Problem/blob/master/Images/speed_nearest_timestamp.png)
 
 
-# SAFE AI Lab Problem 4
+## How to run the code
 
-## Objective
+python2.7 SAFE_AI_Challenge.py right_pass2_sedan.bag
 
-## Matrices
+python Tracking_SAFE_AI.py 
 
-#### State
-[px
- py
- pz
- yaw
- vx
- vy
- vz
- yaw_derivative]
-
-#### Prediction Matrix(F)
-
-[[1,0,0,0,dt,0,0,0],
- [0,1,0,0,0,dt,0,0],
- [0,0,1,0,0,0,dt,0],
- [0,0,0,1,0,0,0,dt],
- [0,0,0,0,1,0,0,0],
- [0,0,0,0,0,1,0,0],
- [0,0,0,0,0,0,1,0],
- [0,0,0,0,0,0,0,1]]
-
-#### State Covariance Matrix(P)
-
-
-#### Prediction Matrix(F)
